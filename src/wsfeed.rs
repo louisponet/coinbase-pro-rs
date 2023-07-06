@@ -29,12 +29,12 @@ impl WSFeed {
     // Constructor for simple subcription with product_ids and channels
     pub async fn connect(
         uri: &str,
-        product_ids: &[&str],
+        product_ids: Vec<String>,
         channels: &[ChannelType],
     ) -> Result<impl CBStream + CBSink, CBError> {
         let subscribe = Subscribe {
             _type: SubscribeCmd::Subscribe,
-            product_ids: product_ids.into_iter().map(|x| x.to_string()).collect(),
+            product_ids,
             channels: channels
                 .to_vec()
                 .into_iter()
